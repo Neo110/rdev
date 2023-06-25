@@ -103,26 +103,26 @@ pub unsafe fn convert(
                 y: point.y,
             })
         }
-        CGEventType::KeyDown => {
-            let code = cg_event.get_integer_value_field(EventField::KEYBOARD_EVENT_KEYCODE);
-            Some(EventType::KeyPress(key_from_code(code.try_into().ok()?)))
-        }
-        CGEventType::KeyUp => {
-            let code = cg_event.get_integer_value_field(EventField::KEYBOARD_EVENT_KEYCODE);
-            Some(EventType::KeyRelease(key_from_code(code.try_into().ok()?)))
-        }
-        CGEventType::FlagsChanged => {
-            let code = cg_event.get_integer_value_field(EventField::KEYBOARD_EVENT_KEYCODE);
-            let code = code.try_into().ok()?;
-            let flags = cg_event.get_flags();
-            if flags < LAST_FLAGS {
-                LAST_FLAGS = flags;
-                Some(EventType::KeyRelease(key_from_code(code)))
-            } else {
-                LAST_FLAGS = flags;
-                Some(EventType::KeyPress(key_from_code(code)))
-            }
-        }
+        // CGEventType::KeyDown => {
+        //     let code = cg_event.get_integer_value_field(EventField::KEYBOARD_EVENT_KEYCODE);
+        //     Some(EventType::KeyPress(key_from_code(code.try_into().ok()?)))
+        // }
+        // CGEventType::KeyUp => {
+        //     let code = cg_event.get_integer_value_field(EventField::KEYBOARD_EVENT_KEYCODE);
+        //     Some(EventType::KeyRelease(key_from_code(code.try_into().ok()?)))
+        // }
+        // CGEventType::FlagsChanged => {
+        //     let code = cg_event.get_integer_value_field(EventField::KEYBOARD_EVENT_KEYCODE);
+        //     let code = code.try_into().ok()?;
+        //     let flags = cg_event.get_flags();
+        //     if flags < LAST_FLAGS {
+        //         LAST_FLAGS = flags;
+        //         Some(EventType::KeyRelease(key_from_code(code)))
+        //     } else {
+        //         LAST_FLAGS = flags;
+        //         Some(EventType::KeyPress(key_from_code(code)))
+        //     }
+        // }
         CGEventType::ScrollWheel => {
             let delta_y =
                 cg_event.get_integer_value_field(EventField::SCROLL_WHEEL_EVENT_POINT_DELTA_AXIS_1);
